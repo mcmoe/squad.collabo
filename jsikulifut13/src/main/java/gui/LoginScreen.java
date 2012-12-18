@@ -38,9 +38,7 @@ public class LoginScreen implements KeyListener {
 		frame = new JFrame();
 		panel = new JPanel(new GridLayout(2, 1));
 		panelCredentials = new JPanel(new GridLayout(2, 2));
-		//panel2 = new JPanel();
 	
-
 		emailLabel = new JLabel("Email: ");
 		emailText = new JTextField("Enter email address here...    ");
 		passwordLabel = new JLabel("Password: ");

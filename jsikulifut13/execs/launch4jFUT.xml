@@ -1,8 +1,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\G7W7\Desktop\FUT13Login.jar</jar>
-  <outfile>C:\Users\G7W7\Desktop\FUT13LoginX.exe</outfile>
+  <jar>C:\Users\G7W7\Desktop\FUT13LoginExtract.jar</jar>
+  <outfile>C:\Users\G7W7\Desktop\FUT13Login_Extract.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir></chdir>
