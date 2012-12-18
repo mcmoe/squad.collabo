@@ -3,6 +3,8 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-public class LoginScreen {
+public class LoginScreen implements KeyListener {
 	
 	JFrame frame;
 	JPanel panel;
@@ -27,7 +29,12 @@ public class LoginScreen {
 	JLabel passwordLabel;
 	JPasswordField passwordText;
 	
+	final Runnable loginCommand;
+	
 	public LoginScreen(final Runnable loginCommand) {
+		
+		this.loginCommand = loginCommand;
+		
 		frame = new JFrame();
 		panel = new JPanel(new GridLayout(2, 1));
 		panelCredentials = new JPanel(new GridLayout(2, 2));
@@ -49,6 +56,9 @@ public class LoginScreen {
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
+		
+		passwordText.addKeyListener(this);
+		buttonLogin.addKeyListener(this);
 		
 		buttonLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,5 +98,22 @@ public class LoginScreen {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyChar() == KeyEvent.VK_ENTER) { 
+				new Thread(loginCommand).start();
+			} 
+	}
+
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
