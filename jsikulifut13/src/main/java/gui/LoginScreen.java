@@ -77,6 +77,13 @@ public class LoginScreen implements KeyListener {
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+		
+		try { 
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getEmailText() {
@@ -91,15 +98,6 @@ public class LoginScreen implements KeyListener {
 		frame.setVisible(true);
 	}
 	
-	public void launch() {	
-		try { 
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyChar() == KeyEvent.VK_ENTER) { 
