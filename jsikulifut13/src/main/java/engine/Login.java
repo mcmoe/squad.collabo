@@ -20,9 +20,10 @@ public class Login {
 
         ScreenRegion s = new DesktopScreenRegion();
   
-        // TODO how to pass local path in resources directory instead for better portability?
-        URL imageURL = new URL("https://github.com/mcmoe/squad.collabo/blob/master/jsikulifut13/src/main/resources/Email.png?raw=true");                
-        Target imageTarget = new ImageTarget(imageURL);
+        Class<?> targetClass = getClass();
+        
+        URL emailSnapshotURL = targetClass.getResource("/Email.png");                
+        Target imageTarget = new ImageTarget(emailSnapshotURL);
 
         ScreenRegion r = s.wait(imageTarget,5000);
         
@@ -36,8 +37,9 @@ public class Login {
         
         keyboard.type(new String(password));
         
-        imageURL = new URL("https://github.com/mcmoe/squad.collabo/blob/master/jsikulifut13/src/main/resources/SignIn.png?raw=true");                
-        imageTarget = new ImageTarget(imageURL);
+        URL signInURL = targetClass.getResource("/SignIn.png");                
+        imageTarget = new ImageTarget(signInURL);
+
 
         r = s.wait(imageTarget,5000);
         
