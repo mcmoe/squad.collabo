@@ -14,36 +14,72 @@ import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import static org.sikuli.api.API.*;
 
 public class Login {
+	
+	private String email;
+	private char[] password;
+	private Mouse mouse;
+	private Keyboard keyboard;
+	
+	public Login() {
+        mouse = new DesktopMouse();
+		keyboard = new DesktopKeyboard();
+	}
+	
+	private void signIn(ScreenRegion s, Class<?> targetClass) {
+        URL emailSnapshotURL = targetClass.getResource("/Email.png");                
+        Target imageTarget = new ImageTarget(emailSnapshotURL);
+        ScreenRegion r = s.wait(imageTarget,5000);
+        
+        mouse.click(r.getCenter());
+        keyboard.type(email);
+        keyboard.type("\t");        
+        keyboard.type(new String(password));
+        
+        URL signInURL = targetClass.getResource("/SignIn.png");                
+        imageTarget = new ImageTarget(signInURL);
+        r = s.wait(imageTarget,5000);
+        
+        mouse.click(r.getCenter());
+	}
 
 	public void launch(String email, char[] password) throws MalformedURLException {
+		
+		this.email = email;
+		this.password = password;
+		
 		browse(new URL("http://www.ea.com/uk/football/fifa-ultimate-team"));
 
         ScreenRegion s = new DesktopScreenRegion();
   
         Class<?> targetClass = getClass();
         
-        URL emailSnapshotURL = targetClass.getResource("/Email.png");                
-        Target imageTarget = new ImageTarget(emailSnapshotURL);
+        URL coinsPointsSnapshotURL = targetClass.getResource("/CoinsFIFAPoints.png");               
+        Target imageTarget = new ImageTarget(coinsPointsSnapshotURL);
 
-        ScreenRegion r = s.wait(imageTarget,5000);
+        ScreenRegion r = s.wait(imageTarget,50000);
         
-        Mouse mouse = new DesktopMouse();
-        mouse.click(r.getCenter());
+        if(r == null) {
+        	System.out.println("signing in...");
+        	signIn(s, targetClass);
+        }
         
-        Keyboard keyboard = new DesktopKeyboard();
-        keyboard.type(email);
-
-        keyboard.type("\t");
-        
-        keyboard.type(new String(password));
-        
-        URL signInURL = targetClass.getResource("/SignIn.png");                
-        imageTarget = new ImageTarget(signInURL);
-
-
-        r = s.wait(imageTarget,5000);
-        
-        mouse = new DesktopMouse();
-        mouse.click(r.getCenter());
+        // navigate to trade pile
+        {
+	       	 URL tradingSnapshotURL = targetClass.getResource("/Trading.png");               
+	         /*Target*/ imageTarget = new ImageTarget(tradingSnapshotURL);
+	    	
+	         System.out.println("looking for Trading...");
+	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
+	        
+	         mouse.click(r.getCenter());
+	         
+	         URL tradePileSnapshotURL = targetClass.getResource("/TradePile.png");               
+	         /*Target*/ imageTarget = new ImageTarget(tradePileSnapshotURL);
+	    	
+	         System.out.println("looking for Trade Pile...");
+	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
+	         
+	         mouse.click(r.getCenter());
+        }
 	}
 }
