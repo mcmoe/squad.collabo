@@ -19,13 +19,15 @@ public class Login {
 	private char[] password;
 	private Mouse mouse;
 	private Keyboard keyboard;
+	private Class<?> targetClass;
 	
 	public Login() {
         mouse = new DesktopMouse();
 		keyboard = new DesktopKeyboard();
+		targetClass = getClass();
 	}
 	
-	private void signIn(ScreenRegion s, Class<?> targetClass) {
+	private void signIn(ScreenRegion s) {
         URL emailSnapshotURL = targetClass.getResource("/Email.png");                
         Target imageTarget = new ImageTarget(emailSnapshotURL);
         ScreenRegion r = s.wait(imageTarget,5000);
@@ -37,9 +39,16 @@ public class Login {
         
         URL signInURL = targetClass.getResource("/SignIn.png");                
         imageTarget = new ImageTarget(signInURL);
-        r = s.wait(imageTarget,5000);
+        r = s.wait(imageTarget,500);
         
         mouse.click(r.getCenter());
+	}
+	
+	private boolean isSignInRequired(ScreenRegion s) {
+		URL coinsPointsSnapshotURL = targetClass.getResource("/CoinsFIFAPoints.png");               
+        Target imageTarget = new ImageTarget(coinsPointsSnapshotURL);
+
+        return (s.wait(imageTarget,50000) == null);
 	}
 
 	public void launch(String email, char[] password) throws MalformedURLException {
@@ -50,33 +59,26 @@ public class Login {
 		browse(new URL("http://www.ea.com/uk/football/fifa-ultimate-team"));
 
         ScreenRegion s = new DesktopScreenRegion();
-  
-        Class<?> targetClass = getClass();
         
-        URL coinsPointsSnapshotURL = targetClass.getResource("/CoinsFIFAPoints.png");               
-        Target imageTarget = new ImageTarget(coinsPointsSnapshotURL);
-
-        ScreenRegion r = s.wait(imageTarget,50000);
-        
-        if(r == null) {
-        	System.out.println("signing in...");
-        	signIn(s, targetClass);
+        if(isSignInRequired(s)) {
+        	System.out.println("signing in..."); // TODO: logger
+        	signIn(s);
         }
         
         // navigate to trade pile
         {
 	       	 URL tradingSnapshotURL = targetClass.getResource("/Trading.png");               
-	         /*Target*/ imageTarget = new ImageTarget(tradingSnapshotURL);
+	         Target imageTarget = new ImageTarget(tradingSnapshotURL);
 	    	
-	         System.out.println("looking for Trading...");
-	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
+	         System.out.println("looking for Trading..."); // TODO: logger
+	         ScreenRegion r = s.wait(imageTarget,5000);
 	        
 	         mouse.click(r.getCenter());
 	         
 	         URL tradePileSnapshotURL = targetClass.getResource("/TradePile.png");               
 	         /*Target*/ imageTarget = new ImageTarget(tradePileSnapshotURL);
 	    	
-	         System.out.println("looking for Trade Pile...");
+	         System.out.println("looking for Trade Pile..."); // TODO: logger
 	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
 	         
 	         mouse.click(r.getCenter());
@@ -84,7 +86,7 @@ public class Login {
 	         URL xpiredSnapshotURL = targetClass.getResource("/Xpired.png");               
 	         /*Target*/ imageTarget = new ImageTarget(xpiredSnapshotURL);
 	    	
-	         System.out.println("waiting for xpired...");
+	         System.out.println("waiting for xpired..."); // TODO: logger
 	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
 	         
 	         if(r!= null) {
