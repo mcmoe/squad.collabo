@@ -80,6 +80,24 @@ public class Login {
 	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
 	         
 	         mouse.click(r.getCenter());
+	         
+	         URL xpiredSnapshotURL = targetClass.getResource("/Xpired.png");               
+	         /*Target*/ imageTarget = new ImageTarget(xpiredSnapshotURL);
+	    	
+	         System.out.println("waiting for xpired...");
+	         /* ScreenRegion */ r = s.wait(imageTarget,5000);
+	         
+	         if(r!= null) {
+		         mouse.click(r.getCenter());
+		         
+		         URL listSnapshotURL = targetClass.getResource("/ButtonList.png");               
+		         /*Target*/ imageTarget = new ImageTarget(listSnapshotURL);
+		         
+		         System.out.println("waiting for list button...");
+		         /* ScreenRegion */ r = s.wait(imageTarget,5000);
+		         
+		         mouse.click(r.getCenter());
+	         }
         }
 	}
 }
