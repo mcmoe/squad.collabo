@@ -1,4 +1,4 @@
-package gui;
+package gui.fut;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -1,7 +1,7 @@
 package adapter;
 
 import engine.Engine;
-import gui.LoginScreen;
+import gui.user.LoginScreen;
 
 import java.net.MalformedURLException;
 
