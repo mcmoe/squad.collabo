@@ -1,6 +1,11 @@
 engine\Login.class
+engine\Controller.class
 gui\LoginScreen.class
+gui\fut\TradePileRegion.class
 adapter\GuiLogin.class
 gui\LoginScreen$2.class
+engine\ReList.class
+engine\Engine.class
+gui\fut\SignInRegion.class
 gui\LoginScreen$1.class
 gui\HelloWorldExample.class

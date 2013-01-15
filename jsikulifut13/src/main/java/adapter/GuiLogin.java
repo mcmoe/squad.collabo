@@ -1,18 +1,16 @@
 package adapter;
 
-import java.net.MalformedURLException;
-
-import engine.Login;
+import engine.Engine;
 import gui.LoginScreen;
+
+import java.net.MalformedURLException;
 
 public class GuiLogin implements Runnable{
 	
 	LoginScreen loginScreen;
-	Login login;
+	Engine engine;
 	
 	public GuiLogin() {
-		login = new Login();
-		
 	}
 	
 	public void display() {
@@ -22,7 +20,10 @@ public class GuiLogin implements Runnable{
 
 	public void run() {
 		try {
-			login.launch(loginScreen.getEmailText(), loginScreen.getPasswordText());
+			engine = new Engine();
+			engine.launch();
+			engine.signIn(loginScreen.getEmailText(), loginScreen.getPasswordText());
+			engine.reList(); // for testing purposes, is here ... adapter to be re-factored with notification dev
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
