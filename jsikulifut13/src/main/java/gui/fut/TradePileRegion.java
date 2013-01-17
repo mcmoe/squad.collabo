@@ -29,10 +29,18 @@ public class TradePileRegion {
 		buttonList = new ImageTarget(targetClass.getResource("/ButtonList.png"));
 		highlightedButtonList = new ImageTarget(targetClass.getResource("/ButtonHighlightedList.png"));
 		coinsPointsRegion = new ImageTarget(targetClass.getResource("/CoinsFIFAPoints.png"));
+		activePreviousPage = new ImageTarget(targetClass.getResource("/ArrowActiveLeft.png"));
+		highlightedPreviousPage = new ImageTarget(targetClass.getResource("/ArrowActiveHighlightedLeft.png"));	
 		activeNextPage = new ImageTarget(targetClass.getResource("/ArrowActiveRight.png"));
 		highlightedNextPage = new ImageTarget(targetClass.getResource("/ArrowActiveHighlightedRight.png"));
-		activePreviousPage = new ImageTarget(targetClass.getResource("/ArrowActiveLeft.png"));
-		highlightedPreviousPage = new ImageTarget(targetClass.getResource("/ArrowActiveHighlightedLeft.png"));
+		
+		// high accuracy is needed to differentiate from disabled next page button
+		activeNextPage.setMinScore(0.98);
+		highlightedNextPage.setMinScore(0.98);
+		
+		// more efficient as FUT automatically loads the right neighbor of a card that has just been re-listed.
+		// this in turn allows the continuous re-listing of a whole page without reselecting another card.
+		expiredItem.setOrdering(Target.Ordering.LEFT_RIGHT);
 	}
 	
 	public ScreenRegion findTradingTab(int millis) {

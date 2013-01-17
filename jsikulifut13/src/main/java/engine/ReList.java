@@ -60,6 +60,7 @@ public class ReList {
 		ScreenRegion nextPage = tradePileRegion.findNextPage(1000);
 		
 		if(nextPage != null) {
+			System.out.println("clicking next page..."); // TODO: logger
 			hasNextPage = true;
 			controller.clickCenterOf(nextPage);
 			page++;
@@ -79,6 +80,7 @@ public class ReList {
 			ScreenRegion previousPage = tradePileRegion.findPreviousPage(1000);
 			
 			if(previousPage != null) {
+				System.out.println("clicking previous page..."); // TODO: logger
 				controller.clickCenterOf(previousPage);
 				page--;
 			}
@@ -88,7 +90,7 @@ public class ReList {
 	public void reList() {	
 		// navigate to trade pile		
 		System.out.println("looking for Coins/Points to ensure proper login..."); // TODO: logger
-		if(tradePileRegion.findCoinsPointsRegion(20000) != null) {		
+		if(tradePileRegion.findCoinsPointsRegion(20000) != null) {	
 			navigateToTradePile();	        
 			reListAllPages();
 			navigateToFirstPage();
