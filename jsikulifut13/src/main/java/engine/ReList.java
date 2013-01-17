@@ -43,11 +43,11 @@ public class ReList {
 	        controller.clickCenterOf(expiredItem);
 	        
 	        System.out.println("waiting for list button..."); // TODO: logger
-	        ScreenRegion relistButton = tradePileRegion.findReListButton(3000);
+	        ScreenRegion relistButton = tradePileRegion.findReListButton(6000);
 	        
 	        while(relistButton != null) {
 	        	controller.clickCenterOf(relistButton);
-	        	relistButton = tradePileRegion.findReListButton(1000);
+	        	relistButton = tradePileRegion.findReListButton(3000);
 	        }
 	        
 	        System.out.println("waiting for more xpired..."); // TODO: logger
@@ -88,12 +88,30 @@ public class ReList {
 	}
 	
 	public void reList() {	
-		// navigate to trade pile		
+		// navigate to trade pile
+		int times = 0;
+		boolean quit = false;
 		System.out.println("looking for Coins/Points to ensure proper login..."); // TODO: logger
-		if(tradePileRegion.findCoinsPointsRegion(20000) != null) {	
-			navigateToTradePile();	        
-			reListAllPages();
-			navigateToFirstPage();
+		if(tradePileRegion.findCoinsPointsRegion(20000) != null) {
+			do {
+				navigateToTradePile();	        
+				reListAllPages();
+				navigateToFirstPage();
+				times++;
+				
+				if(times <  10) {
+					try {
+						System.out.println("sleeping for one hour :0..."); // TODO: logger
+						Thread.sleep(3600000);
+					} catch (InterruptedException e) {
+						System.out.println("Thread Interruppted - quiting..."); // TODO: logger
+						quit = true;
+						e.printStackTrace();
+					}
+				} else {
+					quit = true;
+				}
+			}while(!quit);
 		}
         
         System.out.println("exiting reList..."); // TODO: logger
