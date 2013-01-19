@@ -15,17 +15,18 @@ public class ReList {
 		tradePileRegion = new TradePileRegion(controller.getScreen());
 	}
 	
-	private void navigateToTradePile() {
-		// navigate to trade pile		
+	private void navigateToTrading() {
 		System.out.println("looking for Trading..."); // TODO: logger
 		ScreenRegion trading = tradePileRegion.findTradingTab(5000); 
-		// this should be worked around as to not have to wait 7000 milliseconds to ensure refresh after login
-        
+
 		if(trading != null) {
 			System.out.println("clicking on trading..."); // TODO: logger
 			controller.clickCenterOf(trading);
 		}
-
+	}
+	
+	private void navigateToTradePile() {		
+		navigateToTrading();
 		System.out.println("looking for Trade Pile..."); // TODO: logger	
         ScreenRegion tradePileTab = tradePileRegion.findTradePileTab(5000);
         
@@ -35,24 +36,28 @@ public class ReList {
         }
 	}
 	
-	private void reListCurrentPage() {
-        System.out.println("waiting for xpired..."); // TODO: logger      
-        ScreenRegion expiredItem = tradePileRegion.findXpiredItem(3000);
-         
-        while(expiredItem != null) {
-	        controller.clickCenterOf(expiredItem);
-	        
-	        System.out.println("waiting for list button..."); // TODO: logger
-	        ScreenRegion relistButton = tradePileRegion.findReListButton(6000);
-	        
-	        while(relistButton != null) {
-	        	controller.clickCenterOf(relistButton);
-	        	relistButton = tradePileRegion.findReListButton(3000);
-	        }
-	        
-	        System.out.println("waiting for more xpired..."); // TODO: logger
-	        expiredItem = tradePileRegion.findXpiredItem(3000);
+	private void reListActiveItems() {
+        System.out.println("waiting for list button..."); // TODO: logger
+        ScreenRegion relistButton = tradePileRegion.findReListButton(6000);
+        
+        while(relistButton != null) {
+        	controller.clickCenterOf(relistButton);
+        	relistButton = tradePileRegion.findReListButton(3000);
         }
+	}
+	
+	private void reListCurrentPage() {
+		ScreenRegion expiredItem = null;
+		reListActiveItems();
+		do {
+	        System.out.println("waiting for xpired..."); // TODO: logger      
+	        expiredItem = tradePileRegion.findXpiredItem(3000);
+	         
+	        if(expiredItem != null) {
+		        controller.clickCenterOf(expiredItem);
+		        reListActiveItems();
+		    }
+		}while(expiredItem != null);
 	}
 	
 	private boolean nextPage() {
@@ -99,9 +104,9 @@ public class ReList {
 				navigateToFirstPage();
 				times++;
 				
-				if(times <  10) {
+				if(times < 1) {
 					try {
-						System.out.println("sleeping for one hour :0..."); // TODO: logger
+						System.out.println(times + " reList Complete\nsleeping for one hour :0 zZZzZzZ"); // TODO: logger
 						Thread.sleep(3600000);
 					} catch (InterruptedException e) {
 						System.out.println("Thread Interruppted - quiting..."); // TODO: logger
