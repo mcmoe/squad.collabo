@@ -42,7 +42,7 @@ public class Login {
 	}
 	
 	private void signInIfRequired() {
-		ScreenRegion emailTexField = signInRegion.findEmailTextField(5000);
+		ScreenRegion emailTexField = signInRegion.findEmailTextField(15000);
 		
         if(emailTexField != null) {
         	System.out.println("found email field signing in..."); // TODO: logger

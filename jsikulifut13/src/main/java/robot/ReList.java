@@ -6,11 +6,13 @@ import robot.region.TradePileRegion;
 
 public class ReList {
 	
+	int cycles;
 	int page;
 	Controller controller;
 	TradePileRegion tradePileRegion;
 	
-	public ReList(Controller controller) {
+	public ReList(Controller controller, int cycles) {
+		this.cycles = cycles;
 		page = 1;
 		this.controller = controller;
 		tradePileRegion = new TradePileRegion(controller.getScreen());
@@ -105,9 +107,9 @@ public class ReList {
 				navigateToFirstPage();
 				times++;
 				
-				if(times < 15) {
+				if(times < cycles) {
 					try {
-						System.out.println(times + " reList Complete\nsleeping for one hour :0 zZZzZzZ"); // TODO: logger
+						System.out.println(times + "/" + cycles + " reList Complete\nsleeping for one hour :0 zZZzZzZ"); // TODO: logger
 						Thread.sleep(3600000);
 					} catch (InterruptedException e) {
 						System.out.println("Thread Interruppted - quiting..."); // TODO: logger

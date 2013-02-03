@@ -16,8 +16,8 @@ public class Engine {
 		login.signIn();
 	}
 	
-	public void reList() {
-		ReList reList = new ReList(controller);
+	public void reList(int cycles) {
+		ReList reList = new ReList(controller, cycles);
 		reList.reList();
 	}
 
