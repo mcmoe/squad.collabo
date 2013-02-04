@@ -24,7 +24,7 @@
                </descriptorRefs>
                <archive>
                   <manifest>
-                     <mainClass>adapter.GuiLogin</mainClass>
+                     <mainClass>ui.robot.GuiEngine</mainClass>
                   </manifest>
                </archive>
             </configuration>
