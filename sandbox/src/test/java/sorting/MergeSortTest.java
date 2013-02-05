@@ -39,4 +39,25 @@ public class MergeSortTest extends TestCase {
 			assertTrue(sortedList.get(i) <= sortedList.get(i+1));
 		}
 	}
+	
+	public void testSortOnStringList() {
+		List<String> list = new ArrayList<String>();
+		list.add("zoo");
+		list.add("abc");
+		list.add("pops");
+		list.add("poms");
+		list.add("ma");
+		list.add("billz");
+		list.add("moe");
+		list.add("1up");
+		list.add("moe2");
+		
+		List<String> sortedList = MergeSort.sort(list);
+		assertNotNull(sortedList);
+		assertEquals(list.size(), sortedList.size());
+		
+		for(int i = 0; i < sortedList.size() -1; ++i) {
+			assertTrue(sortedList.get(i).compareTo(sortedList.get(i+1)) < 0);
+		}
+	}
 }
