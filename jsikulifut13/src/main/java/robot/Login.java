@@ -2,6 +2,8 @@ package robot;
 
 
 import org.sikuli.api.ScreenRegion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import robot.region.SignInRegion;
 
@@ -32,7 +34,8 @@ public class Login {
     	ScreenRegion signInButton = signInRegion.findSignInButton(500);
         
         if(signInButton == null) {
-        	System.out.println("sign in button not found!"); // TODO: logger
+        	Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.info("sign in button not found!");
         	return false;
         }
         
@@ -43,11 +46,14 @@ public class Login {
 	
 	private void signInIfRequired() {
 		ScreenRegion emailTexField = signInRegion.findEmailTextField(15000);
-		
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        
         if(emailTexField != null) {
-        	System.out.println("found email field signing in..."); // TODO: logger
+        	logger.info("found email field signing in...");
         	fillAndSubmitCredentials(emailTexField);
         }
+        
+		logger.info("login not necessary - already signed in");
 	}
 	
 	public void signIn() {

@@ -1,6 +1,8 @@
 package robot;
 
 import org.sikuli.api.ScreenRegion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import robot.region.TradePileRegion;
 
@@ -19,28 +21,31 @@ public class ReList {
 	}
 	
 	private void navigateToTrading() {
-		System.out.println("looking for Trading..."); // TODO: logger
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.info("looking for Trading...");
 		ScreenRegion trading = tradePileRegion.findTradingTab(5000); 
 
 		if(trading != null) {
-			System.out.println("clicking on trading..."); // TODO: logger
+			logger.info("clicking on trading...");
 			controller.clickCenterOf(trading);
 		}
 	}
 	
 	private void navigateToTradePile() {		
 		navigateToTrading();
-		System.out.println("looking for Trade Pile..."); // TODO: logger	
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.info("looking for Trade Pile...");
         ScreenRegion tradePileTab = tradePileRegion.findTradePileTab(5000);
         
         if(tradePileTab != null) {
-        	System.out.println("clicking on tradePile..."); // TODO: logger
+        	logger.info("clicking on tradePile...");
         	controller.clickCenterOf(tradePileTab);
         }
 	}
 	
 	private void reListActiveItems() {
-        System.out.println("waiting for list button..."); // TODO: logger
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.info("waiting for list button...");
         ScreenRegion relistButton = tradePileRegion.findReListButton(6000);
         
         while(relistButton != null) {
@@ -53,7 +58,8 @@ public class ReList {
 		ScreenRegion expiredItem = null;
 		reListActiveItems();
 		do {
-	        System.out.println("waiting for xpired..."); // TODO: logger      
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.info("waiting for xpired...");
 	        expiredItem = tradePileRegion.findXpiredItem(3000);
 	         
 	        if(expiredItem != null) {
@@ -68,7 +74,8 @@ public class ReList {
 		ScreenRegion nextPage = tradePileRegion.findNextPage(1000);
 		
 		if(nextPage != null) {
-			System.out.println("clicking next page..."); // TODO: logger
+			Logger logger = LoggerFactory.getLogger(this.getClass());
+			logger.info("clicking next page...");
 			hasNextPage = true;
 			controller.clickCenterOf(nextPage);
 			page++;
@@ -88,7 +95,8 @@ public class ReList {
 			ScreenRegion previousPage = tradePileRegion.findPreviousPage(1000);
 			
 			if(previousPage != null) {
-				System.out.println("clicking previous page..."); // TODO: logger
+				Logger logger = LoggerFactory.getLogger(this.getClass());
+				logger.info("clicking previous page...");
 				controller.clickCenterOf(previousPage);
 				page--;
 			}
@@ -99,7 +107,8 @@ public class ReList {
 		// navigate to trade pile
 		int times = 0;
 		boolean quit = false;
-		System.out.println("looking for Coins/Points to ensure proper login..."); // TODO: logger
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.info("looking for Coins/Points to ensure proper login...");
 		if(tradePileRegion.findCoinsPointsRegion(20000) != null) {
 			do {
 				navigateToTradePile();	        
@@ -109,10 +118,10 @@ public class ReList {
 				
 				if(times < cycles) {
 					try {
-						System.out.println(times + "/" + cycles + " reList Complete\nsleeping for one hour :0 zZZzZzZ"); // TODO: logger
+						logger.info("{} / {} reList Complete\nsleeping for one hour :0 zZZzZzZ", times, cycles);
 						Thread.sleep(3600000);
 					} catch (InterruptedException e) {
-						System.out.println("Thread Interruppted - quiting..."); // TODO: logger
+						logger.info("Thread Interruppted - quiting...");
 						quit = true;
 						e.printStackTrace();
 					}
@@ -122,6 +131,6 @@ public class ReList {
 			}while(!quit);
 		}
         
-        System.out.println("exiting reList..."); // TODO: logger
+		logger.info("exiting reList...");
 	}
 }
