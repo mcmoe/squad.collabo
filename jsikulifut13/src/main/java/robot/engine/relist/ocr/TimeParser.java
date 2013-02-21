@@ -17,14 +17,19 @@ public class TimeParser {
 	
 	private void treat() {
 		Logger logger = LoggerFactory.getLogger(this.getClass());
+		// fix consistent digit screw up - ocr learning :)
 		s = s.replace('o', '0'); // look for 'o' replace with '0'
-		s = s.replace('$', '8'); // look for '$' replace with '8'
 		s = s.replace('z', '2'); // look for 'z' replace with '2'
+		s = s.replace('$', '8'); // look for '$' replace with '8'
+		s = s.replace('a', '9'); // look for 'a' replace with '9'
 		
+		// fix consistent letter screw up and normalize to lower case with no spaces
 		s = s.replace(':', 'i'); // look for ':' replace with 'i'
 		s = s.replace("s8cs", "secs"); // look for s8cs replace with secs
 		s = s.replace("s8c0nds", "seconds"); // look for s8c0nds replace with seconds
-		s = s.toLowerCase(); // make lower case		
+		s = s.toLowerCase(); // make lower case
+		s = s.replaceAll("\\s",""); // remove all spaces: in case they exist in-between the digits of a number
+		
 		logger.info("Treated String: {}", s);
 	}
 	private void parse() {

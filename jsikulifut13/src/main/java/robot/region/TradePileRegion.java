@@ -94,17 +94,24 @@ public class TradePileRegion {
 	}
 	
 	public ScreenRegion findFirstCard(int millis) {
+		ScreenRegion firstCard = null;
 		ScreenRegion bar = findCurrentActionsBar(millis);
-		int width = (int) bar.getBounds().getWidth();
-		int height = (int) bar.getBounds().getHeight();
-		return bar.getRelativeScreenRegion(width, 0, width*2, height);
+		if(bar != null) {
+			int width = (int) bar.getBounds().getWidth();
+			int height = (int) bar.getBounds().getHeight();
+			firstCard = bar.getRelativeScreenRegion(width, 0, width*2, height);	
+		}		
+		return firstCard;
 	}
 	
 	public ScreenRegion findTimeRemaining(int millis) {
+		ScreenRegion timeBox = null;
 		ScreenRegion label = screen.wait(timeRemaining, millis);
-		int width = (int) label.getBounds().getWidth();
-		int height = (int) label.getBounds().getHeight();
-		ScreenRegion timeBox = label.getRelativeScreenRegion(width, 0, width, height);
+		if(label != null) {
+			int width = (int) label.getBounds().getWidth();
+			int height = (int) label.getBounds().getHeight();
+			timeBox = label.getRelativeScreenRegion(width, 0, width, height);
+		}
 		return timeBox;
 	}
 }

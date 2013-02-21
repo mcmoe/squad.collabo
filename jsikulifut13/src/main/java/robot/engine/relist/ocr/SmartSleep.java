@@ -40,7 +40,7 @@ public class SmartSleep {
 	
 	private int parseRemainingTime(String s) {
 		Logger logger = LoggerFactory.getLogger(this.getClass());
-		logger.info("Parsing Raw Time Ramaining String: ");
+		logger.info("Parsing Raw Time Ramaining String");
 		return new TimeParser(s).getInMillis();
 	}
 	
@@ -49,8 +49,8 @@ public class SmartSleep {
 		logger.info("OCR Time Remaining - start");
 		String s = ocr.recognizeCharacters(timeBox);
 		logger.info("OCR aquired: {}", s);
-		int timeRemaining = parseRemainingTime(s); /// return this
-		logger.info("OCR parsed: {}", timeRemaining);
+		int timeRemaining = parseRemainingTime(s);
+		logger.info("OCR parsed: {} millis", timeRemaining);
 		return timeRemaining;
 	}
 	
