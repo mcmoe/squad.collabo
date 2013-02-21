@@ -26,5 +26,6 @@ ui\gui\frame\ControlFrame$2.class
 ui\gui\frame\ControlFrame$1.class
 ui\gui\event\ILoginEventListener.class
 ui\gui\panel\ReListPanel$1.class
+robot\engine\relist\ocr\TimeParser$1.class
 robot\HelloWorld.class
 robot\engine\Engine.class

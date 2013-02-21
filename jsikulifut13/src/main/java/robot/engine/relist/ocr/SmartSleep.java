@@ -52,7 +52,6 @@ public class SmartSleep {
 		int timeRemaining = parseRemainingTime(s); /// return this
 		logger.info("OCR parsed: {}", timeRemaining);
 		return timeRemaining;
-		//return DEFAULT_SLEEP_IN_MILLIS; //  for default until implementation
 	}
 	
 	// ensure full screen refresh first - wait for a second :)

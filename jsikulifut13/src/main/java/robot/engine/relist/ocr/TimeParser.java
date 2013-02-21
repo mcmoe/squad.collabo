@@ -84,10 +84,6 @@ public class TimeParser {
 		private int seconds;
 		private int minutes;
 		
-		public Time() {
-			
-		}
-
 		public int getSeconds() {
 			return seconds;
 		}
