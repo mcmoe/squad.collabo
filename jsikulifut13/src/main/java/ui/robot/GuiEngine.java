@@ -1,6 +1,6 @@
 package ui.robot;
 
-import robot.Engine;
+import robot.engine.Engine;
 import ui.gui.event.IGuiEventListener;
 import ui.gui.event.LoginEvent;
 import ui.gui.event.ReListEvent;

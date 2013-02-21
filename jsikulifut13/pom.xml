@@ -69,7 +69,20 @@
       	<artifactId>slf4j-log4j12</artifactId>
       	<version>1.7.2</version>
       </dependency>
+      <dependency>
+         <groupId>asprise</groupId>
+         <artifactId>asprise-ocr</artifactId>
+         <version>4.0.0</version>
+      </dependency>
    </dependencies>
+   <!-- In Project repository -->
+   <repositories>
+      <repository>
+         <id>in-project</id>
+         <name>In Project Repo</name>
+         <url>file://${project.basedir}/lib</url>
+      </repository>
+   </repositories>
    <dependencyManagement>
    </dependencyManagement>
    <properties>

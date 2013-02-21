@@ -18,6 +18,8 @@ public class TradePileRegion {
 	Target highlightedNextPage;
 	Target activePreviousPage;
 	Target highlightedPreviousPage;
+	Target currentActionsBar;
+	Target timeRemaining;
 	
 	public TradePileRegion(ScreenRegion screen) {
 		this.screen = screen;
@@ -33,10 +35,14 @@ public class TradePileRegion {
 		highlightedPreviousPage = new ImageTarget(targetClass.getResource("/ArrowActiveHighlightedLeft.png"));	
 		activeNextPage = new ImageTarget(targetClass.getResource("/ArrowActiveRight.png"));
 		highlightedNextPage = new ImageTarget(targetClass.getResource("/ArrowActiveHighlightedRight.png"));
+		currentActionsBar = new ImageTarget(targetClass.getResource("/CurrentActionsBar.png"));
+		timeRemaining = new ImageTarget(targetClass.getResource("/TimeRemaining.png"));
 		
 		// high accuracy is needed to differentiate from disabled next page button
 		activeNextPage.setMinScore(0.98);
 		highlightedNextPage.setMinScore(0.98);
+		// high accuracy also needed for actions bar (differntiate from sold items bar etc...)
+		currentActionsBar.setMinScore(0.999);
 		
 		// more efficient as FUT automatically loads the right neighbor of a card that has just been re-listed.
 		// this in turn allows the continuous re-listing of a whole page without reselecting another card.
@@ -81,5 +87,24 @@ public class TradePileRegion {
 			previousPage = screen.wait(highlightedPreviousPage, millis/2);	
 		}
 		return previousPage;
+	}
+	
+	private ScreenRegion findCurrentActionsBar(int millis) {
+		return screen.wait(currentActionsBar, millis);
+	}
+	
+	public ScreenRegion findFirstCard(int millis) {
+		ScreenRegion bar = findCurrentActionsBar(millis);
+		int width = (int) bar.getBounds().getWidth();
+		int height = (int) bar.getBounds().getHeight();
+		return bar.getRelativeScreenRegion(width, 0, width*2, height);
+	}
+	
+	public ScreenRegion findTimeRemaining(int millis) {
+		ScreenRegion label = screen.wait(timeRemaining, millis);
+		int width = (int) label.getBounds().getWidth();
+		int height = (int) label.getBounds().getHeight();
+		ScreenRegion timeBox = label.getRelativeScreenRegion(width, 0, width, height);
+		return timeBox;
 	}
 }
