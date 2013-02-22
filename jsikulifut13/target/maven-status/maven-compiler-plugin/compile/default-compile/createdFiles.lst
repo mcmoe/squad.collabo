@@ -11,6 +11,7 @@ ui\gui\panel\LoginPanel$ActionPerformedListener.class
 ui\gui\frame\ControlFrame.class
 robot\engine\relist\ocr\SmartSleep.class
 ui\gui\event\IGuiEventListener.class
+robot\engine\commons\ImageLogger.class
 robot\engine\relist\ocr\TimeParser.class
 robot\engine\commons\Browser.class
 ocr\Ocr$1.class

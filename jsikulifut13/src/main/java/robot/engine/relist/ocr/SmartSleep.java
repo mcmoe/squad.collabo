@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import robot.engine.commons.Controller;
+import robot.engine.commons.ImageLogger;
 import robot.region.TradePileRegion;
 
 public class SmartSleep {
@@ -69,6 +70,7 @@ public class SmartSleep {
 			ScreenRegion timeRemaining = tradePileRegion.findTimeRemaining(2000);
 			if(timeRemaining != null) {
 				BufferedImage timeBox = timeRemaining.capture();
+				ImageLogger.getLogger().logToResource(timeBox);
 				sleepTime = calculateFromRemaining(timeBox);
 			}
 			else {
