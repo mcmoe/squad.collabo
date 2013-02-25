@@ -69,6 +69,7 @@ public class SmartSleep {
 			logger.info("looking for time remaining");
 			ScreenRegion timeRemaining = tradePileRegion.findTimeRemaining(2000);
 			if(timeRemaining != null) {
+				sleepForASec();
 				BufferedImage timeBox = timeRemaining.capture();
 				ImageLogger.getLogger().logToResource(timeBox);
 				sleepTime = calculateFromRemaining(timeBox);
