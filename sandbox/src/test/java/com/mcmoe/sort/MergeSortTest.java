@@ -1,7 +1,9 @@
-package sorting;
+package com.mcmoe.sort;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mcmoe.sort.MergeSort;
 
 import junit.framework.TestCase;
 
